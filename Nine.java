@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 
+//the indentation is cursed, sorry
 public class Nine {
     private static Set<List<Integer>> visited;
     private static String file;
