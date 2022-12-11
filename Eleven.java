@@ -26,7 +26,7 @@ public class Eleven{
             if (op.equals("old")){opnum = -1;}
             else{opnum = Integer.valueOf(op);}
 
-            Monkey m = new Monkey(mnum, operationLine[operationLine.length -2], opnum, Integer.valueOf(testLine[testLine.length -1]), Integer.valueOf(trueLine[trueLine.length -1]), Integer.valueOf(falseLine[falseLine.length -1]));
+            Monkey m = new Monkey(operationLine[operationLine.length -2], opnum, Integer.valueOf(testLine[testLine.length -1]), Integer.valueOf(trueLine[trueLine.length -1]), Integer.valueOf(falseLine[falseLine.length -1]));
             monkey.put(mnum,m);
 
             int last = -1;
@@ -71,7 +71,6 @@ public class Eleven{
     }
 
     private static class Monkey{
-        int name;
         String operation;
         int opnum;
         int test;
@@ -80,8 +79,8 @@ public class Eleven{
         Queue<Long> items = new LinkedList<Long>();
         static int mod =1;
 
-        Monkey(int name, String operation, int opnum, int test, int mtrue, int mfalse){
-            this.name = name; this.operation = operation; this.opnum = opnum; this.test = test; this.mtrue = mtrue; this.mfalse = mfalse;
+        Monkey(String operation, int opnum, int test, int mtrue, int mfalse){
+            this.operation = operation; this.opnum = opnum; this.test = test; this.mtrue = mtrue; this.mfalse = mfalse;
             mod *= test;
         }
 

@@ -18,7 +18,8 @@ public class Eight{
             scan.readLine();
             y++;
         }
-
+        
+        scan.close();
         scan = new BufferedReader(new FileReader(file));
  
         seen = new boolean[x][y];
@@ -46,6 +47,7 @@ public class Eight{
             }
         }
 
+        scan.close();
         scan = new BufferedReader(new FileReader(file));
 
         for (int count = 0; count < x; count++){
@@ -95,6 +97,7 @@ public class Eight{
             y++;
         }
 
+        scan.close();
         scan = new BufferedReader(new FileReader(file));
  
         seen = new int[x][y];
@@ -106,7 +109,6 @@ public class Eight{
         while (scan.ready()){
             String line = scan.readLine();
             counter++;
-            int height = -1;
             for (int i = 0; i < x; i++){
                 int tree = line.charAt(i) - 48;
                 int score = 0;
@@ -118,7 +120,6 @@ public class Eight{
                 seen[i][counter] *= score;
             }
             
-            height = -1;
             for (int i = x-1; i >= 0; i--){
                 int tree = line.charAt(i) - 48;
                 int score = 0;
@@ -131,6 +132,7 @@ public class Eight{
             }
         }
 
+        scan.close();
         scan = new BufferedReader(new FileReader(file));
 
         for (int count = 0; count < x; count++){
@@ -141,7 +143,6 @@ public class Eight{
             }
 
             String line = b.toString();
-            int height = -1;
             for (int i = 0; i < y; i++){
                 int tree = line.charAt(i) - 48;
                 int score = 0;
@@ -153,7 +154,6 @@ public class Eight{
                 seen[count][i] *= score;
             }
             
-            height = -1;
             for (int i = y-1; i >= 0; i--){
                 int tree = line.charAt(i) - 48;
                 int score = 0;
@@ -167,11 +167,9 @@ public class Eight{
         }
 
         int max = 0;
-        int imax =0;
-        int jmax = 0;
         for (int i = 0; i < x; i++){
             for (int j = 0; j < y; j++){
-                if (seen[i][j] > max){max = seen[i][j]; imax = i; jmax = j;}
+                if (seen[i][j] > max){max = seen[i][j];}
             }
         }
 

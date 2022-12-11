@@ -1,8 +1,6 @@
 
 import java.io.*;
 
-import javax.imageio.IIOException;
-
 public class Four {
 
     public static void main(String[] args) throws IOException{

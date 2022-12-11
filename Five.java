@@ -79,6 +79,8 @@ public class Five {
             }
         }
 
+        scan.close();
+
         System.out.print(one.pop());
         System.out.print(two.pop());
         System.out.print(three.pop());
@@ -156,6 +158,8 @@ public class Five {
                 toStack.push(move[howmany -1 -i]);
             }
         }
+
+        scan.close();
 
         System.out.print(one.pop());
         System.out.print(two.pop());

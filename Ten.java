@@ -1,4 +1,3 @@
-import java.util.*;
 import java.io.*;
 
 public class Ten{
@@ -35,6 +34,8 @@ public class Ten{
             }
         }
 
+        scan.close();
+
         System.out.println(score);
     }
 
@@ -61,11 +62,12 @@ public class Ten{
         for (int j = 0; j < 6; j++){
             for (int i = 0; i< 40; i++){
                 if (screen[i][j] == 1){build.append("#");}
-                else {build.append(".");}
+                else {build.append(" ");}
             }
             build.append("\n");
         }
 
+        scan.close();
         System.out.println(build.toString());
 
     }

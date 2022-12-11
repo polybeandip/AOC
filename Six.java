@@ -14,6 +14,8 @@ public class Six {
             stream += scan.readLine();
         }
 
+        scan.close();
+
         char[] streamchars = stream.toCharArray();
         for (int i = 3; i < streamchars.length; i++){
             Set<Character> stuff = new HashSet<Character>();
@@ -33,6 +35,8 @@ public class Six {
             stream += scan.readLine();
         }
 
+        scan.close();
+
         char[] streamchars = stream.toCharArray();
         for (int i = 13; i < streamchars.length; i++){
             Set<Character> stuff = new HashSet<Character>();
@@ -43,5 +47,7 @@ public class Six {
 
             if (stuff.size() == 14){System.out.println(i+1); return;}
         }
+
+        scan.close();
     }
 }

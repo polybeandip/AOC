@@ -43,6 +43,7 @@ public class Seven {
             }
         }
 
+        scan.close();
         System.out.println(total(dirs));
     }
 
@@ -90,7 +91,8 @@ public class Seven {
                 min = size;
             }
         }
-
+        
+        scan.close();
         System.out.println(min);
 
     }
