@@ -105,6 +105,7 @@ public class Twelve{
             }
         }
 
+        //Big O? whats that??
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < x*y; i++){
             if (input.charAt(i) == 'a' || input.charAt(i) == 'S'){
