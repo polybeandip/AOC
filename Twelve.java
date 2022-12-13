@@ -50,18 +50,7 @@ public class Twelve{
             }
         }
         System.out.println(BFS(start, end, adj));
-
-        /*
-        List<Integer> path = new ArrayList<Integer>();
-        int p = end;
-        while(p != start){path.add(p); p = back[p];}
-        path.add(start);
-
-        for (int i = path.size() -1; i >= 0; i--){
-            System.out.print(path.get(i) + " ");
-        }
-        System.out.println(); 
-        */
+        scan.close();
     }
 
     private static void partTwo() throws IOException{
@@ -73,13 +62,12 @@ public class Twelve{
         while(scan.ready()){y++; buildInput.append(scan.readLine());}
         String input = buildInput.toString();
         List<List<Integer>> adj = new ArrayList<List<Integer>>();
-        int start = 0;
         int end = 0;
 
         //parse
         for(int i = 0; i < x*y; i++){
             char c = input.charAt(i);
-            if (c == 'S'){start = i; c='a';}
+            if (c == 'S'){c='a';}
             if (c == 'E'){end = i; c='z';}
 
             adj.add(new ArrayList<Integer>());
@@ -114,6 +102,7 @@ public class Twelve{
             }
         }
         System.out.println(min);
+        scan.close();
     }
     
 
