@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Sixteenv2 {
+public class Sixteen {
     private static Valve first = null;
 
     //only for the memoization
