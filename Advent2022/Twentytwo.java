@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Twentytwo {
     private static char[][] plane;
@@ -14,8 +15,8 @@ public class Twentytwo {
         parse1(file);
         System.out.println(motion());
 
-        parse2(file);
-        System.out.println(cube());
+        parse3("Test.txt");
+        System.out.println(cube(4));
     }
 
     private static void parse1(String file) throws IOException{
@@ -45,6 +46,46 @@ public class Twentytwo {
 
         scan.readLine();
         while(scan.ready()){motion += scan.readLine();}
+        scan.close();
+    }
+
+    private static void parse3(String file) throws IOException{
+        /*
+         *      0
+         *  5 3 4
+         *      2 1
+         * 
+         */
+
+
+        cube = new char[6][4][4]; //face, row, col
+        BufferedReader scan = new BufferedReader(new FileReader(file));
+        int count = 0;
+        while(scan.ready()){
+           String line = scan.readLine();
+            if(count < 4){
+                for (int i = 0; i < 4; i++){
+                    cube[0][count][i] = line.charAt(i + 8);
+                }
+            }
+            else if(count < 8){
+                for(int i = 0; i < 4; i++){
+                    cube[3][count - 4][i] = line.charAt(i+ 4);
+                    cube[5][count - 4][i] = line.charAt(i);
+                    cube[4][count - 4][i] = line.charAt(i+ 8);
+                }
+            }else if(count < 12){
+                for(int i = 0; i < 4; i++){
+                    cube[2][count - 8][i] = line.charAt(i + 8);
+                    cube[1][count - 8][i] = line.charAt(i+12);
+                }
+            }
+            else{
+                motion = scan.readLine();
+            }
+            count++;
+        }
+
         scan.close();
     }
 
@@ -82,20 +123,21 @@ public class Twentytwo {
         scan.close();
     }
 
-    private static int[] moveFace(int nrow, int ncol, int face){
+    private static int[] moveFace(int nrow, int ncol, int face, int side){
         //new row(0), new col(1), new face(2), new direction (i.e. new drow(4) and dcol(5))
         int[] out = new int[6];
+        side--;
         if(nrow == -1){//up
             if(face == 0){
                 out[2] = 5; out[0] = ncol; out[1] = 0;
                 out[4] = 0; out[5] = 1; //face 5 and right
             }
             else if(face == 1){
-                out[2] = 5; out[0] = 49; out[1] = ncol;
+                out[2] = 5; out[0] = side; out[1] = ncol;
                 out[4] = -1; out[5] = 0; //face 5 and upward
             }
             else if(face == 2){
-               out[2] = 4; out[0] = 49; out[1] = ncol;
+               out[2] = 4; out[0] = side; out[1] = ncol;
                out[4] = -1; out[5] = 0; //face 4 and upward
             }
             else if(face == 3){
@@ -103,25 +145,25 @@ public class Twentytwo {
                 out[4] = 0; out[5] = 1; //face 4 and right
             }
             else if(face == 4){
-                out[2] = 0; out[0] = 49; out[1] = ncol;
+                out[2] = 0; out[0] = side; out[1] = ncol;
                 out[4] = -1; out[5] = 0; //face 0 and upward
             }
             else if(face == 5){
-                out[2] = 3; out[0] = 49; out[1] = ncol;
+                out[2] = 3; out[0] = side; out[1] = ncol;
                 out[4] = -1; out[5] = 0; //face 3 and upward
             }
         }
-        else if(nrow == 50){//down
+        else if(nrow == side+1){//down
             if(face == 0){
                 out[2] = 4; out[0] = 0; out[1] = ncol;
                 out[4] = 1; out[5] = 0; //face 4 and downward
             }
             else if(face == 1){
-                out[2] = 4; out[0] = ncol; out[1] =49;
+                out[2] = 4; out[0] = ncol; out[1] =side;
                 out[4] = 0; out[5] = -1; //face 4 and left
             }
             else if(face == 2){
-                out[2] = 5; out[0] = ncol; out[1] =49;
+                out[2] = 5; out[0] = ncol; out[1] =side;
                 out[4] = 0; out[5] = -1; //face 5 and left
             }
             else if(face == 3){
@@ -139,19 +181,19 @@ public class Twentytwo {
         }
         else if(ncol == -1){//left
             if(face == 0){
-               out[2] = 3; out[0] = 49 - nrow; out[1] = 0;
+               out[2] = 3; out[0] = side - nrow; out[1] = 0;
                out[4] = 0; out[5] = 1; //face 3 and right
             }
             else if(face == 1){
-                out[2] = 1; out[0] = nrow; out[1] = 49;
+                out[2] = 1; out[0] = nrow; out[1] = side;
                 out[4] = 0; out[5] = -1; //face 0 and left
             }
             else if(face == 2){
-                out[2] = 3; out[0] = nrow; out[1] = 49;
+                out[2] = 3; out[0] = nrow; out[1] = side;
                 out[4] = 0; out[5] = -1; //face 3 and left
             }
             else if(face == 3){
-               out[2] = 0; out[0] = 49 - nrow; out[1] = 0;
+               out[2] = 0; out[0] = side - nrow; out[1] = 0;
                out[4] = 0; out[5] = 1; //face 0 and right
             }
             else if(face == 4){
@@ -163,17 +205,17 @@ public class Twentytwo {
                 out[4] = 1; out[5] = 0; //face 1 and downward
             }
         }
-        else if(ncol == 50){//right
+        else if(ncol == side+1){//right
             if(face == 0){
                 out[2] = 1; out[0] = nrow; out[1] = 0;
                 out[4] = 0; out[5] = 1;
             }
             else if(face == 1){
-                out[2] = 2; out[0] = 49 - nrow; out[1] = 49;
+                out[2] = 2; out[0] = side - nrow; out[1] = side;
                 out[4] = 0; out[5] = -1;
             }
             else if(face == 2){
-                out[2] = 1; out[0] = 49 - nrow; out[1] = 49;
+                out[2] = 1; out[0] = side - nrow; out[1] = side;
                 out[4] = 0; out[5] = -1;
             }
             else if(face == 3){
@@ -181,11 +223,11 @@ public class Twentytwo {
                 out[4] = 0; out[5] = 1;
             }
             else if(face == 4){
-                out[2] = 1; out[0] = 49; out[1] = nrow;
+                out[2] = 1; out[0] = side; out[1] = nrow;
                 out[4] = -1; out[5] = 0;
 
             }else if(face == 5){
-                out[2] = 2; out[0] = 49; out[1] = nrow;
+                out[2] = 2; out[0] = side; out[1] = nrow;
                 out[4] = -1; out[5] = 0;
             }
         }
@@ -193,12 +235,13 @@ public class Twentytwo {
         return out;
     }
 
-    private static int cube(){
+    private static int cube(int side){
         int counter = 0;
         int row = 0, col = 0, face = 0;
         int drow = 0, dcol = 1;
 
         while(counter < motion.length()){
+
             String far_str = "";
             while(counter < motion.length() && motion.charAt(counter) != 'R' && motion.charAt(counter) != 'L'){
                 far_str += motion.charAt(counter);
@@ -208,14 +251,16 @@ public class Twentytwo {
             int far = Integer.valueOf(far_str);
 
             while(far > 0){
+                System.out.println("row: " + row + " col: " +col + " face: " + face);
                 int nrow = row + drow;
                 int ncol = col + dcol;
-                if(nrow >= 0 && nrow < 50 && ncol >= 0 && ncol < 50){
+                if(nrow >= 0 && nrow < side && ncol >= 0 && ncol < side){
                     if(cube[face][nrow][ncol] != '#'){row = nrow; col = ncol; far--;}
                     else{break;}
                 }
                 else{
-                    int[] out = moveFace(nrow, ncol, face);
+                    int[] out = moveFace(nrow, ncol, face,side);
+                    System.out.println("out: " + Arrays.toString(out));
                     nrow = out[0]; ncol = out[1]; int nface= out[2];
                     if(cube[nface][nrow][ncol] != '#'){row = nrow; col = ncol; drow = out[4]; dcol = out[5]; face = nface; far--;}
                     else{break;}
