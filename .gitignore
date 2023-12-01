@@ -1,6 +1,4 @@
 *.txt
 *.class
 *Test*
-*.cmo
-*.cmi
-*.byte
+*_build
