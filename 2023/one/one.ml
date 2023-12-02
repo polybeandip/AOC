@@ -20,9 +20,10 @@ let rec grab acc n lst =
     | _, h :: t -> grab (acc ^ h) (n - 1) t
     | _ -> ""
 
-let get_num lst = match lst with 
+let get_num p2 lst = match lst with 
   | h :: _ when Str.string_match (Str.regexp "[0-9]") h 0 -> Some (int_of_string h)
   | _ -> 
+    if not p2 then None else
     let three, four, five = grab "" 3 lst, grab "" 4 lst, grab "" 5 lst in
     let f x = List.assoc_opt x digits in
     begin
@@ -34,7 +35,7 @@ let get_num lst = match lst with
         | _ -> failwith "bad input"
     end
 
-let rec calibration str fst lst = 
+let rec calibration p2 str fst lst = 
   match str with
   | [] -> 
     begin 
@@ -45,7 +46,7 @@ let rec calibration str fst lst =
     end
   | _ :: t -> 
     begin
-      match get_num str with
+      match get_num p2 str with
         | Some x ->
           let fst, lst = 
             begin
@@ -53,13 +54,22 @@ let rec calibration str fst lst =
                 | Some _ -> fst, Some x
                 | None -> Some x, lst 
             end
-          in calibration t fst lst
-        | None -> calibration t fst lst
+          in calibration p2 t fst lst
+        | None -> calibration p2 t fst lst
     end 
+
+let yeet part = List.fold_left (fun acc x -> calibration part x None None + acc) 0 
 
 let _ = 
   In_channel.input_lines (open_in "one.txt") 
-    |> List.map explode 
-    |> List.fold_left (fun acc x -> calibration x None None + acc) 0 
-    |> string_of_int
-    |> print_endline
+  |> List.map explode 
+  |> yeet false
+  |> string_of_int
+  |> print_endline
+
+let _ = 
+  In_channel.input_lines (open_in "one.txt") 
+  |> List.map explode 
+  |> yeet true
+  |> string_of_int
+  |> print_endline
