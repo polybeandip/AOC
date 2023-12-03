@@ -11,12 +11,8 @@ class Three {
     String file = "three.txt";
     if (args.length >= 1 && args[0].equals("-t"))
       file = "test.txt";
-
-    partOne(file);
-  }
-
-  private static void partOne(String file) throws IOException {
     BufferedReader scan = new BufferedReader(new FileReader(file));
+
     width = scan.readLine().length();
     while (scan.ready()) {height++; scan.readLine();}
     scan.close();
@@ -82,7 +78,7 @@ class Three {
     System.out.println(sum);
     System.out.println(ratio);
   }
-  
+
   private static boolean is_symbol(int i, int j) {
     if (i < 0 || i >= height || j < 0 || j >= width) return false;
 

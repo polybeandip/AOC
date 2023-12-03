@@ -7,6 +7,7 @@ class Two {
   public static void main(String[] args) throws IOException {
     String file = "two.txt";
     BufferedReader scan = new BufferedReader(new FileReader(file));
+
     int part1 = 0, part2 = 0;
     while (scan.ready()) {
       String line = scan.readLine();
