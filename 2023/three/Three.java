@@ -17,13 +17,15 @@ class Three {
     while (scan.ready()) {height++; scan.readLine();}
     scan.close();
 
-    map = new char[height][width];
+    map = new char[height][width+1];
     scan = new BufferedReader(new FileReader(file));
     for (int i = 0; i < height; i++) {
       String line = scan.readLine();
       for (int j = 0; j < width; j++) {
         map[i][j] = line.charAt(j);
       }
+
+      map[i][width] = '\n';
     }
     scan.close();
 
@@ -33,7 +35,7 @@ class Three {
       boolean part = false;
       boolean inside = false;
       Set<List<Integer>> symbols = new HashSet<List<Integer>>();
-      for (int j = 0; j < width; j++) {
+      for (int j = 0; j <= width; j++) {
         char c = map[i][j];
         if ((c - '0') <= 9 && (c -'0') >= 0) {
           num.append(c);
@@ -43,6 +45,7 @@ class Three {
         else if (inside) {
           int n = Integer.valueOf(num.toString());
           if (part) sum += n;
+
           for (List<Integer> coord : symbols) {
             if (!gears.containsKey(coord))
               gears.put(coord, new ArrayList<Integer>());
@@ -53,16 +56,6 @@ class Three {
           part = false;
           num = new StringBuilder();
           symbols = new HashSet<List<Integer>>();
-        }
-      }
-
-      if (inside) {
-        int n = Integer.valueOf(num.toString());
-        if (part) sum += n;
-        for (List<Integer> coord : symbols) {
-          if (!gears.containsKey(coord))
-            gears.put(coord, new ArrayList<Integer>());
-          gears.get(coord).add(n);
         }
       }
     }
