@@ -12,7 +12,6 @@ public class Four {
     scan.close();
     
     scan = new BufferedReader(new FileReader(file)); 
-    int[] matches = new int[total+1];
     int[] counts = new int[total+1];
     Arrays.fill(counts, 1);
 
@@ -27,39 +26,34 @@ public class Four {
         if (c == ':') break;
       }
       int card = Integer.valueOf(colon[0].substring(start, i));
+      int dcard = 1;
 
       String[] nums = colon[1].substring(1).split(" ");
-      boolean check = false;
       int score = 0;
-      int count = 0;
       Set<Integer> winners = new HashSet<Integer>();
 
-      for (i = 0; i < nums.length; i++) {
-        if (check) {
-          if (nums[i].equals("")) continue;
-          int num = Integer.valueOf(nums[i]);
-          if (winners.contains(num)) {
-            score = score == 0 ? 1 : 2 * score;
-            count++;
+      for (i = 0; ; i++) {
+        if (nums[i].equals("")) continue;
+        if (!nums[i].equals("|")) 
+          winners.add(Integer.valueOf(nums[i]));
+        else {i++; break;}
+      }
+
+      for ( ; i < nums.length; i++) {
+        if (nums[i].equals("")) continue;
+        if (winners.contains(Integer.valueOf(nums[i]))) {
+          score = score == 0 ? 1 : 2 * score;
+          if (card + dcard <= total) {
+            counts[card + dcard] += counts[card];
+            dcard++;
           }
-        }
-        else {
-          if (!nums[i].equals("") && !nums[i].equals("|")) 
-            winners.add(Integer.valueOf(nums[i]));
-          if (nums[i].equals("|")) check = true;
         }
       }
 
-      matches[card] = count;
       part1 += score;
-      check = false;
     }
 
     scan.close();
-
-    for (int i = 1; i <= total; i++)
-      for (int j = i+1; j <= i + matches[i] && j <= total; j++) 
-        counts[j] += counts[i];
 
     int part2 = 0;
     for (int i = 1; i <= total; i++) part2 += counts[i];
