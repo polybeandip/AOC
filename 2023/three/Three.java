@@ -9,8 +9,7 @@ class Three {
 
   public static void main(String[] args) throws IOException {
     String file = "three.txt";
-    if (args.length >= 1 && args[0].equals("-t"))
-      file = "test.txt";
+    if (args.length >= 1 && args[0].equals("-t")) file = "test.txt";
     BufferedReader scan = new BufferedReader(new FileReader(file));
 
     width = scan.readLine().length();
@@ -21,10 +20,7 @@ class Three {
     scan = new BufferedReader(new FileReader(file));
     for (int i = 0; i < height; i++) {
       String line = scan.readLine();
-      for (int j = 0; j < width; j++) {
-        map[i][j] = line.charAt(j);
-      }
-
+      for (int j = 0; j < width; j++) map[i][j] = line.charAt(j);
       map[i][width] = '\n';
     }
     scan.close();
@@ -47,7 +43,7 @@ class Three {
           if (part) sum += n;
 
           for (List<Integer> coord : symbols) {
-            if (!gears.containsKey(coord))
+            if (!gears.containsKey(coord)) 
               gears.put(coord, new ArrayList<Integer>());
             gears.get(coord).add(n);
           }
@@ -63,9 +59,7 @@ class Three {
     int ratio = 0;
     for (Map.Entry<List<Integer>, List<Integer>> entry : gears.entrySet()) {
       List<Integer> gear = entry.getValue();
-      if (gear.size() == 2) {
-        ratio += gear.get(0) * gear.get(1);
-      }
+      if (gear.size() == 2) ratio += gear.get(0) * gear.get(1);
     }
 
     System.out.println(sum);
@@ -74,7 +68,6 @@ class Three {
 
   private static boolean is_symbol(int i, int j) {
     if (i < 0 || i >= height || j < 0 || j >= width) return false;
-
     int ndist = map[i][j] - '0';
     return (ndist < 0 || ndist > 9) && map[i][j] != '.';
   }
@@ -87,8 +80,7 @@ class Three {
         if (dx == 0 && dy == 0) continue;
         if (is_symbol(i+dx, j + dy)) {
           out = true;
-          if (map[i+dx][j+dy] == '*')
-            symbols.add(Arrays.asList(i+dx, j + dy));
+          if (map[i+dx][j+dy] == '*') symbols.add(Arrays.asList(i+dx, j + dy));
         }
       }
     }
