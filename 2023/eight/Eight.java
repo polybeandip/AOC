@@ -9,7 +9,7 @@ class Eight {
 
     BufferedReader scan = new BufferedReader(new FileReader(file));
     Map<String, String[]> map = new HashMap<String, String[]>();
-    List<String> current = new ArrayList<String>();
+    List<String> starts = new ArrayList<String>();
 
     String instruction = scan.readLine();
     scan.readLine();
@@ -20,7 +20,7 @@ class Eight {
       String[] value = {options[0].substring(1), options[1].substring(0, options[1].length() -1)};
       map.put(line[0], value);
       
-      if (line[0].charAt(2) == 'A') current.add(line[0]);
+      if (line[0].charAt(2) == 'A') starts.add(line[0]);
     }
 
     scan.close();
@@ -34,22 +34,31 @@ class Eight {
     }
     System.out.println(part1);
 
-    int part2 = 0; //TOO SLOW
-    while (!allZ(current)) {
-      for (int i = 0; i < current.size(); i++) {
-        int lr = instruction.charAt(part2 % instruction.length()) == 'L' ? 0 : 1;
-        current.set(i,map.get(current.get(i))[lr]);
+    //assumes distance from A-node -> Z-node = distance from Z-node to Z-node
+    List<Integer> dist = new ArrayList<Integer>();
+    for (String s : starts) {
+      spot = s;
+      int count;
+      for (count = 0; spot.charAt(2) != 'Z'; count++) {
+        int lr = instruction.charAt(count % instruction.length()) == 'L' ? 0 : 1;
+        spot = map.get(spot)[lr];
       }
-      part2++;
+      dist.add(count);
     }
+    long part2 = lcm(dist, 0);
     System.out.println(part2);
   }
 
-  private static boolean allZ(List<String> list) {
-    boolean check = true;
-    for (String s : list) 
-      if (s.charAt(2) != 'Z') {check = false; break;}
+  private static long gcd(long x, long y) {
+    if (y == 0) return x;
+    return gcd(y, x % y);
+  }
 
-    return check;
+  private static long lcm (long x, long y) {return (x * y) / gcd(x,y);}
+
+  private static long lcm(List<Integer> lst, int start) {
+    if (lst.size() - start == 2) 
+      return lcm(lst.get(start), lst.get(start + 1));
+    return lcm(lst.get(start), lcm(lst, start + 1));
   }
 }
