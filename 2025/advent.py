@@ -7,6 +7,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('day', type=int)
     parser.add_argument('-s', '--submit', type=int, help="day to submit")
+    parser.add_argument('--sample', action='store_true', help="use sample data")
     args = parser.parse_args()
 
     if args.submit is not None and args.submit not in [1, 2]:
@@ -21,7 +22,11 @@ if __name__ == '__main__':
     except ModuleNotFoundError:
         parser.error(f"Day {args.day} unimplemented")
 
-    data = get_data(day=args.day, year=2025)
+    if args.sample:
+        with open('sample.txt', 'r') as sample:
+            data = sample.read()
+    else:
+        data = get_data(day=args.day, year=2025)
 
     p1, p2 = day.part1(data), day.part2(data)
     print("Not Done" if p1 is None else p1)
