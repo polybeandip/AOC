@@ -33,6 +33,6 @@ if __name__ == '__main__':
     print("Not Done" if p2 is None else p2)
 
     if args.submit == 1:
-        submit(p1)
+        submit(p1, part='a', day=args.day, year=2025)
     if args.submit == 2:
-        submit(p2)
+        submit(p2, part='b', day=args.day, year=2025)
