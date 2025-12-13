@@ -1,9 +1,3 @@
-import sys
-from aocd import get_data, submit
-
-data = get_data(day=5, year=2025)
-
-
 def get_intervals(inter_str):
     intervals = []
     for inter in inter_str.split():
@@ -13,7 +7,7 @@ def get_intervals(inter_str):
     return intervals
 
 
-def part1():
+def part1(data):
     [inter_str, ing_str] = data.split('\n\n')
     intervals = get_intervals(inter_str)
 
@@ -28,7 +22,7 @@ def part1():
     return count
 
 
-def part2():
+def part2(data):
     inter_str = data.split('\n\n')[0]
     intervals = get_intervals(inter_str)
 
@@ -48,16 +42,3 @@ def part2():
             prev_right = r + 1
 
     return count
-
-
-p1 = part1()
-p2 = part2()
-print("Not Done" if p1 is None else p1)
-print("Not Done" if p2 is None else p2)
-
-for i, c in enumerate(sys.argv):
-    n = None if i == len(sys.argv) - 1 else sys.argv[i + 1]
-    if c == "-s" and n == "1":
-        submit(p1)
-    if c == "-s" and n == "2":
-        submit(p2)

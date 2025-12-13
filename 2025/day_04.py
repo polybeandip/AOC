@@ -1,9 +1,3 @@
-import sys
-from aocd import get_data, submit
-
-data = get_data(day=4, year=2025)
-
-
 def get(matrix, i, j):
     if i < 0 or i >= len(matrix):
         return '.'
@@ -29,7 +23,7 @@ def check(matrix, i, j):
     return count < 4
 
 
-def part1(matrix=None, rep=False):
+def part1(data, matrix=None, rep=False):
     if matrix is None:
         matrix = data.split()
 
@@ -44,27 +38,14 @@ def part1(matrix=None, rep=False):
     return count
 
 
-def part2():
+def part2(data):
     matrix = [list(d) for d in data.split()]
 
     total = 0
     while True:
-        count = part1(matrix, True)
+        count = part1(data, matrix, True)
         if count == 0:
             break
         total += count
 
     return total
-
-
-p1 = part1()
-p2 = part2()
-print("Not Done" if p1 is None else p1)
-print("Not Done" if p2 is None else p2)
-
-for i, c in enumerate(sys.argv):
-    n = None if i == len(sys.argv) - 1 else sys.argv[i + 1]
-    if c == "-s" and n == "1":
-        submit(p1)
-    if c == "-s" and n == "2":
-        submit(p2)

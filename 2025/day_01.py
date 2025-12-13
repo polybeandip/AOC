@@ -1,9 +1,4 @@
-from aocd import get_data
-
-data = get_data(day=1, year=2025)
-
-
-def part1():
+def part1(data):
     count = 0
     nob = 50
     cmds = data.split()
@@ -19,7 +14,7 @@ def part1():
     return count
 
 
-def part2():
+def part2(data):
     count = 0
     nob = 50
     cmds = data.split()
@@ -44,10 +39,3 @@ def part2():
         nob = x % 100
 
     return count
-
-
-p1 = part1()
-p2 = part2()
-
-print(p1)
-print(p2)

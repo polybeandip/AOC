@@ -1,7 +1,4 @@
 from math import floor, ceil
-from aocd import get_data
-
-data = get_data(day=2, year=2025)
 
 
 def invalid_range_sum(l, r, ls, rs, d):
@@ -20,7 +17,7 @@ def invalid_range_sum(l, r, ls, rs, d):
     return y
 
 
-def part1():
+def part1(data):
     ranges = data.split(",")
     sum = 0
     for range in ranges:
@@ -43,7 +40,7 @@ def part1():
     return int(sum)
 
 
-def part2():
+def part2(data):
     ranges = data.split(",")
     sum = 0
     for idrange in ranges:
@@ -80,9 +77,3 @@ def part2():
                 sum -= invalid_range_sum(l, r, ls, rs, 1)
 
     return int(sum)
-
-
-p1 = part1()
-p2 = part2()
-print(p1)
-print(p2)

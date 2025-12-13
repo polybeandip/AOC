@@ -1,9 +1,3 @@
-import sys
-from aocd import get_data, submit
-
-data = get_data(day=3, year=2025)
-
-
 def find_max_jolt(banks, num_digits=2):
     def find_max_rem(digits):
         max = None
@@ -41,22 +35,9 @@ def sum_max_jolts(bats, num_digits):
     return sum
 
 
-def part1():
+def part1(data):
     return sum_max_jolts(data.split(), 2)
 
 
-def part2():
+def part2(data):
     return sum_max_jolts(data.split(), 12)
-
-
-p1 = part1()
-p2 = part2()
-print("Not Done" if p1 is None else p1)
-print("Not Done" if p2 is None else p2)
-
-for i, c in enumerate(sys.argv):
-    n = None if i == len(sys.argv) - 1 else sys.argv[i + 1]
-    if c == "-s" and n == "1":
-        submit(p1)
-    if c == "-s" and n == "2":
-        submit(p2)

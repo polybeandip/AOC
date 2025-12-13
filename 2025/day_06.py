@@ -1,8 +1,4 @@
-import sys
 import math
-from aocd import get_data, submit
-
-data = get_data(day=6, year=2025)
 
 
 def do_fold(fold, op):
@@ -15,7 +11,7 @@ def do_fold(fold, op):
     raise RuntimeError(f"Invalid op={op}")
 
 
-def part1():
+def part1(data):
     lines = data.split('\n')
 
     nums = [[] for _ in range(len(lines[0]))]
@@ -30,7 +26,7 @@ def part1():
     return total
 
 
-def part2():
+def part2(data):
     lines = data.split('\n')
     nums, ops = lines[:-1], lines[-1].split()
 
@@ -61,16 +57,3 @@ def part2():
             fold.append(int(curr))
 
     return total
-
-
-p1 = part1()
-p2 = part2()
-print("Not Done" if p1 is None else p1)
-print("Not Done" if p2 is None else p2)
-
-for i, c in enumerate(sys.argv):
-    n = None if i == len(sys.argv) - 1 else sys.argv[i + 1]
-    if c == "-s" and n == "1":
-        submit(p1)
-    if c == "-s" and n == "2":
-        submit(p2)
